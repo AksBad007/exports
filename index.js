@@ -3,6 +3,8 @@ const app = express();
 const contentfulExport = require("contentful-export");
 const port = 3000;
 
+app.use(express.json());
+
 app.post("/", async (req, res) => {
   const { spaceId, managementToken } = req.body;
   let result;
