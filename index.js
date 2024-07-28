@@ -42,14 +42,14 @@ app.post("/save", (req, res, next) => {
     `UPDATE CREDENTIALS SET spaceId = '${spaceId}', managementToken = '${managementToken}', region = '${region}', accessKeyId = '${accessKeyId}', secretAccessKey = '${secretAccessKey}', bucket = '${bucket}', frequency = '${frequency}', nextBackup = '${calculateNextBackup(frequency)}' WHERE id = ${credentialId}` :
     `INSERT INTO CREDENTIALS (spaceId, managementToken, region, accessKeyId, secretAccessKey, bucket, frequency, nextBackup) VALUES ('${spaceId}', '${managementToken}', '${region}', '${accessKeyId}', '${secretAccessKey}', '${bucket}', '${frequency}', '${calculateNextBackup(frequency)}')`;
 
-  con.query(sql, (err, { insertId }) => {
+  con.query(sql, (err, result) => {
     if (err) {
       console.error("Oh no! Some errors occurred!", err);
       res.sendStatus(400);
       next(err);
     }
 
-    res.status(200).send({ id: insertId || credentialId });
+    res.status(200).send({ id: result?.insertId || credentialId });
   });
 });
 
