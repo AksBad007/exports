@@ -47,9 +47,8 @@ app.post("/save", (req, res, next) => {
       console.error("Oh no! Some errors occurred!", err);
       res.sendStatus(400);
       next(err);
-    }
-
-    res.status(200).send({ id: result?.insertId || credentialId });
+    } else
+      res.status(200).send({ id: result?.insertId || credentialId });
   });
 });
 
